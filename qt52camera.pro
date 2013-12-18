@@ -14,8 +14,6 @@ QMAKE_INFO_PLIST = Info.plist
 SOURCES += main.cpp
 RESOURCES += main.qrc
 OTHER_FILES += main.qml
-OTHER_FILES += qml.snippet camera.snippet camera.snippet2
-
 
 cache()
 
