@@ -1,5 +1,4 @@
 #include <UIKit/UIKit.h>
-#include <QtGui/5.2.0/QtGui/qpa/qplatformnativeinterface.h>
 #include <QtGui>
 #include <QtQuick>
 #include "IOSCamera.h"
@@ -50,17 +49,12 @@ IOSCamera::IOSCamera(QQuickItem *parent) :
 
 void IOSCamera::open()
 {
-    // Get the UIView that backs our QQuickWindow:
-    UIView *view = static_cast<UIView *>(
-                QGuiApplication::platformNativeInterface()
-                ->nativeResourceForWindow("uiview", window()));
-    UIViewController *qtController = [[view window] rootViewController];
-
     // Create a new image picker controller to show on top of Qt's view controller:
     UIImagePickerController *imageController = [[[UIImagePickerController alloc] init] autorelease];
     [imageController setSourceType:UIImagePickerControllerSourceTypeCamera];
     [imageController setDelegate:id(m_delegate)];
 
     // Tell the imagecontroller to animate on top:
-    [qtController presentViewController:imageController animated:YES completion:nil];
+    UIViewController *rootController = [[[UIApplication sharedApplication] keyWindow] rootViewController];
+    [rootController presentViewController:imageController animated:YES completion:nil];
 }
